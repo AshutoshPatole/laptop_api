@@ -11,7 +11,7 @@ const lapRouter = Router();
 lapRouter.delete("/:laptopID", deleteLaptop);
 lapRouter.patch("/:laptopID", laptopValidate, updateLaptop);
 lapRouter.get("/", getAllLaptops);
-// lapRouter.get("/:laptopID", fetchSingleLaptop);
+lapRouter.get("/:laptopID", fetchSingleLaptop);
 lapRouter.get("/pricing", updatePricing);
 lapRouter.get("/dups", getDuplicates);
 
