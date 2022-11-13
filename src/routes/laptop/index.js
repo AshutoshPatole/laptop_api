@@ -1,4 +1,5 @@
 import { Router } from "express";
+import cache from "../../helper/express_cache";
 import deleteLaptop from "./deleteLaptop";
 import getDuplicates from "./fetchDuplicates";
 import getAllLaptops from "./getLaptops";
@@ -10,9 +11,9 @@ const lapRouter = Router();
 
 lapRouter.delete("/:laptopID", deleteLaptop);
 lapRouter.patch("/:laptopID", laptopValidate, updateLaptop);
-lapRouter.get("/", getAllLaptops);
-lapRouter.get("/:laptopID", fetchSingleLaptop);
-lapRouter.get("/pricing", updatePricing);
-lapRouter.get("/dups", getDuplicates);
+lapRouter.get("/", cache.route(), getAllLaptops);
+lapRouter.get("/:laptopID",  cache.route(),fetchSingleLaptop);
+lapRouter.get("/pricing", cache.route(),updatePricing);
+lapRouter.get("/dups",  cache.route(),getDuplicates);
 
 export default lapRouter;
