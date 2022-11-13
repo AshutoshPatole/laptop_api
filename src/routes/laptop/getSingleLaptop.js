@@ -8,7 +8,7 @@ const fetchSingleLaptop = async (req, res) => {
     }
     catch (e) {
         return res.json({
-            message: "Could not find laptop"
+            message: "Could not find laptop error"
         });
     }
 };
