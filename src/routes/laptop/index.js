@@ -14,6 +14,6 @@ lapRouter.patch("/:laptopID", laptopValidate, updateLaptop);
 lapRouter.get("/", cache.route(), getAllLaptops);
 lapRouter.get("/single/:laptopID",  cache.route(),fetchSingleLaptop);
 lapRouter.get("/pricing", cache.route(),updatePricing);
-lapRouter.get("/duplicate",cache.route(), getDuplicates);
+lapRouter.get("/duplicate", getDuplicates);
 
 export default lapRouter;
