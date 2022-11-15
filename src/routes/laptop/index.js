@@ -1,5 +1,6 @@
 import { Router } from "express";
 import cache from "../../helper/express_cache";
+import bulkInsert from "./addBulkLaptops";
 import deleteLaptop from "./deleteLaptop";
 import getDuplicates from "./fetchDuplicates";
 import getAllLaptops from "./getLaptops";
@@ -15,5 +16,6 @@ lapRouter.get("/", cache.route(), getAllLaptops);
 lapRouter.get("/single/:laptopID",  cache.route(),fetchSingleLaptop);
 lapRouter.get("/pricing", cache.route(),updatePricing);
 lapRouter.get("/duplicate", getDuplicates);
+lapRouter.get("/bulk", bulkInsert);
 
 export default lapRouter;
