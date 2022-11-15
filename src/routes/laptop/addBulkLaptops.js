@@ -2,7 +2,7 @@ import readJSONFile from "../../helper/read_json";
 import Laptop from "../../models/laptop";
 
 const bulkInsert = async (req, res) => {
-  readJSONFile("./page1.json", async (err, json) => {
+  readJSONFile("./2022-11-15-page21.json", async (err, json) => {
     if (err) {
       throw err;
     }

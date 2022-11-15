@@ -13,8 +13,8 @@ const lapRouter = Router();
 lapRouter.delete("/:laptopID", deleteLaptop);
 lapRouter.patch("/:laptopID", laptopValidate, updateLaptop);
 lapRouter.get("/", cache.route(), getAllLaptops);
-lapRouter.get("/single/:laptopID",  cache.route(),fetchSingleLaptop);
-lapRouter.get("/pricing", cache.route(),updatePricing);
+lapRouter.get("/single/:laptopID", cache.route(), fetchSingleLaptop);
+lapRouter.get("/pricing", updatePricing);
 lapRouter.get("/duplicate", getDuplicates);
 lapRouter.get("/bulk", bulkInsert);
 

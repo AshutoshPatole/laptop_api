@@ -2,7 +2,7 @@ import readJSONFile from "../../helper/read_json";
 import Laptop from "../../models/laptop";
 
 const updatePricing = async (req, res) => {
-  readJSONFile("./page.json", async function (err, json) {
+  readJSONFile("./2022-11-15-page0.json", async function (err, json) {
     if (err) {
       throw err;
     }
