@@ -1,3 +1,7 @@
+/* 
+Endpoint for filtering laptops by min and max price
+*/
+
 import Laptop from "../../models/laptop";
 
 const filterByPrice = async (req, res) => {
