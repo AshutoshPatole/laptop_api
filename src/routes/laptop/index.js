@@ -3,6 +3,7 @@ import cache from "../../helper/express_cache";
 import bulkInsert from "./addBulkLaptops";
 import deleteLaptop from "./deleteLaptop";
 import getDuplicates from "./fetchDuplicates";
+import filterByPrice from "./filterLaptopByPrice";
 import getAllLaptops from "./getLaptops";
 import fetchSingleLaptop from "./getSingleLaptop";
 import updateLaptop from "./updateLaptop";
@@ -17,5 +18,6 @@ lapRouter.get("/single/:laptopID", cache.route(), fetchSingleLaptop);
 lapRouter.get("/pricing", updatePricing);
 lapRouter.get("/duplicate", getDuplicates);
 lapRouter.get("/bulk", bulkInsert);
+lapRouter.get("/search", cache.route(), filterByPrice);
 
 export default lapRouter;
