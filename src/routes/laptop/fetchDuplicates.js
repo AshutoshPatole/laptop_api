@@ -1,3 +1,15 @@
+/* 
+Endpoint to find number of duplicate laptops in db
+
+Criteria for duplicate:
+- Same model_number
+- Same part_number
+- Same processor
+- Same laptop name
+- Same price
+
+if everything matches then return these values along with count
+*/
 import Laptop from "../../models/laptop";
 
 const getDuplicates = async (_req, res) => {

@@ -1,3 +1,9 @@
+/* 
+Endpoint for getting single laptop from db
+
+ex: GET: http://localhost:8000/laptop/laptopID
+*/
+
 import Laptop from "../../models/laptop"
 
 const fetchSingleLaptop = async (req, res) => {

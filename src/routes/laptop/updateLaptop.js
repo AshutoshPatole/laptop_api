@@ -1,3 +1,10 @@
+/* 
+Endpoint for patching a laptop
+
+PATCH: http://localhost:8000/laptop/laptopID
+body: {laptop}
+*/
+
 import SERVER from "../../constants/message";
 import STATUS_CODES from "../../constants/statusCode";
 import Laptop from "../../models/laptop";
