@@ -8,7 +8,7 @@ const filterBySpec = async (req, res) => {
   try {
     var laptops = await Laptop.find({
       laptop_name: { $regex: brand, $options: "i" },
-      processor: { $regex: processor, $options: "i" },
+      processor_name: { $regex: processor, $options: "i" },
       price: { $lte: price },
     }).sort({ price: 1 });
     return res.send(laptops);
