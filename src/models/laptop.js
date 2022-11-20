@@ -1,9 +1,7 @@
-import {
-    Schema, model
-} from "mongoose";
+import { Schema, model } from "mongoose";
 
-const laptopSchema = Schema({
-
+const laptopSchema = Schema(
+  {
     img: { type: String },
     price: { type: Number },
     laptop_name: { type: String },
@@ -23,6 +21,7 @@ const laptopSchema = Schema({
     ram: { type: String },
     ram_type: { type: String },
     processor_variant: { type: String },
+    cpu_score: { type: Number, default: 0 },
     clock_speed: { type: String },
     graphic_processor: { type: String },
     number_of_cores: { type: String },
@@ -55,7 +54,9 @@ const laptopSchema = Schema({
     covered_in_warranty: { type: String },
     not_covered_in_warranty: { type: String },
     domestic_warranty: { type: String },
-}, { timestamps: true });
+  },
+  { timestamps: true }
+);
 
 const Laptop = model("laptop", laptopSchema);
 

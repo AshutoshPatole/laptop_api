@@ -18,7 +18,7 @@ app.use(express.json());
 /* Routes */
 
 app.use("/laptop", ROUTES.LAPTOP);
-// app.use("/filter", ROUTES.FILTER);
+app.use("/admin", ROUTES.ADMIN);
 
 /* 
     Dummy route to check if the API works after deployment

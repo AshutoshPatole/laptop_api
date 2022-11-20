@@ -1,8 +1,8 @@
 import laptop from "../routes/laptop";
-// import filter from '../routes/filteration';
+import admin from "../routes/admin";
 const ROUTES = {
   LAPTOP: laptop,
-  // FILTER: filter,
+  ADMIN: admin,
 };
 
 export default ROUTES;
