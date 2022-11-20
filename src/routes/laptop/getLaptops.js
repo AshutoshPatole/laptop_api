@@ -13,18 +13,16 @@ import Laptop from "../../models/laptop";
 import Url from "url";
 
 const getAllLaptops = async (_req, res) => {
-  const queryObject = await Url.parse(_req.url, true).query;
+  const queryObject = Url.parse(_req.url, true).query;
+  const LAPTOP_LIMIT = 20;
 
   if (queryObject.brand != undefined) {
     const laptops = await Laptop.find({
       laptop_name: { $regex: new RegExp(queryObject.brand, "i") },
     })
       .skip(queryObject.offset)
-      .limit(10);
-    const LaptopTotal = await Laptop.find({
-      laptop_name: { $regex: new RegExp(queryObject.brand, "i") },
-    }).count(true);
-    res.send({ laptops, LaptopTotal });
+      .limit(LAPTOP_LIMIT);
+    res.send(laptops);
     return;
   }
   if (queryObject.model != undefined) {
@@ -33,17 +31,12 @@ const getAllLaptops = async (_req, res) => {
       part_number: { $regex: new RegExp(queryObject.part, "i") },  
     })
       .skip(queryObject.offset)
-      .limit(10);
-    const laptopTotal = await Laptop.find({
-      model_number: { $regex: new RegExp(queryObject.model, "i") },
-      part_number: { $regex: new RegExp(queryObject.part, "i") },
-    }).count(true);
-    res.send({ laptops, laptopTotal });
+      .limit(LAPTOP_LIMIT);
+    res.send(laptops);
     return;
   }
-  const laptops = await Laptop.find({}).skip(queryObject.offset).limit(10);
-  const laptopTotal = await Laptop.find({}).count();
-  res.send({ laptops, laptopTotal });
+  const laptops = await Laptop.find({}).skip(queryObject.offset).limit(LAPTOP_LIMIT);
+  res.send(laptops);
 };
 
 export default getAllLaptops;

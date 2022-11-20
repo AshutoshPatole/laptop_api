@@ -1,7 +1,7 @@
 import ExpressRedisCache from 'express-redis-cache';
 
 const cache = ExpressRedisCache({
-    expire: 600,
+    expire: 300,
   })
 
 export default cache;

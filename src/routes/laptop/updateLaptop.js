@@ -19,12 +19,9 @@ const updateLaptop = async (req, res) => {
     if (!lap) return res.status(STATUS_CODES.NOT_FOUND).json({
         message: SERVER.CONTENT_NOT_FOUND
     });
-    // lap.set(req.body);
-    
     try{
         lap.set(req.body);
         await lap.save();
-        console.log("Laptop Saved");
         res.status(STATUS_CODES.OK).json({
             message: SERVER.CONTENT_MODIFIED_SUCCESSFULLY
         });

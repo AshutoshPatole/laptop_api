@@ -14,11 +14,11 @@ const lapRouter = Router();
 
 lapRouter.delete("/:laptopID", deleteLaptop);
 lapRouter.post("/:laptopID", /* laptopValidate ,*/ updateLaptop);
-lapRouter.get("/",  getAllLaptops);
+lapRouter.get("/", cache.route(), getAllLaptops);
 lapRouter.get("/single/:laptopID", fetchSingleLaptop);
 lapRouter.get("/pricing", updatePricing);
 lapRouter.get("/duplicate", getDuplicates);
 lapRouter.get("/bulk", bulkInsert);
-lapRouter.get("/search", filterByPrice);
-lapRouter.get("/filter",  filterBySpec);
+lapRouter.get("/search", cache.route(), filterByPrice);
+lapRouter.get("/filter", cache.route(),  filterBySpec);
 export default lapRouter;
