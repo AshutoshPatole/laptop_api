@@ -1,5 +1,7 @@
 /* 
 Endpoint for filtering laptops by min and max price
+
+example: http://localhost:8000/laptop/search?min=30000&max=100000
 */
 
 import Laptop from "../../models/laptop";

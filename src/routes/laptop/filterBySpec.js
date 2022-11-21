@@ -1,3 +1,12 @@
+/* 
+Endpoint for fetching laptops based on :
+- laptop name
+- processor name
+-  price
+
+sort by less price first
+*/
+
 import Laptop from "../../models/laptop";
 
 const filterBySpec = async (req, res) => {

@@ -8,7 +8,7 @@ Criteria for duplicate:
 - Same laptop name
 - Same price
 
-if everything matches then return these values along with count
+if everything matches then return these values along with count in order of higher duplicate count first
 */
 import Laptop from "../../models/laptop";
 
