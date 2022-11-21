@@ -16,6 +16,8 @@ const laptopSchema = Schema(
     ms_office_provided: { type: String },
     processor_brand: { type: String },
     processor_name: { type: String },
+    cache:{type: String},
+    processor_generation: {type: String},
     ssd: { type: String },
     ssd_capacity: { type: String },
     ram: { type: String },

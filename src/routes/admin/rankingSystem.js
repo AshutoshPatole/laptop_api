@@ -14,7 +14,7 @@ import { cpu, generation } from "../../constants/scores";
 
 const rankingSystem = async (req, res) => {
   // fetch all laptops first
-  var laptops = await Laptop.find({});
+  var laptops = await Laptop.find({}).limit(100);
 
   // invalid array for finding how many laptops are missed to score correct (temporary solution)
   var invalid = [];
@@ -56,10 +56,10 @@ const rankingSystem = async (req, res) => {
     // If none of the generation match then total_score becomes NaN hence check to find
     // and provide default value of processor alone not generation
     if (Number.isNaN(total_score) || total_score == undefined) {
-      invalid.push("invalid");
-      console.log(`score NAN: ${laptops[i]["_id"]}`);
       total_score = cpu[cpu_name];
     }
+
+    console.log(laptops[i]['cache'])
 
     // try to update the doc with new field
     try {
@@ -75,7 +75,7 @@ const rankingSystem = async (req, res) => {
     }
   }
   // TODO: Fix intel cpu generation score count logic: total 115 laptops affected
-  res.send(`Invalid Count ${invalid.length}`);
+  res.send(invalid);
 };
 
 export default rankingSystem;
