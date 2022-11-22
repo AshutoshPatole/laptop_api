@@ -22,6 +22,7 @@ const laptopSchema = Schema(
     ssd_capacity: { type: String },
     ram: { type: String },
     ram_type: { type: String },
+    ram_frequency: {type: String},
     processor_variant: { type: String },
     cpu_score: { type: Number, default: 0 },
     clock_speed: { type: String },

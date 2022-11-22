@@ -10,17 +10,24 @@ WIP: Only CPU is scored as of now.
 */
 
 import Laptop from "../../models/laptop";
-import { cache, cpu, generation } from "../../constants/scores";
+import {
+  cache,
+  cpu,
+  generation,
+  ram,
+  ram_frequency,
+  ram_generation,
+} from "../../constants/scores";
 
 const rankingSystem = async (req, res) => {
   // fetch all laptops first
-  var laptops = await Laptop.find({}).limit(10);
+  var laptops = await Laptop.find({}).limit(2);
 
   // iterate through all laptops
   for (var i = 0; i < laptops.length; i++) {
-
     var cpu_total_score = cpu_score(laptops[i]);
-    
+    var memory_total_score = memory_score(laptops[i]);
+
     // try to update the doc with new field
     try {
       await Laptop.findByIdAndUpdate(
@@ -44,7 +51,7 @@ const cpu_score = (laptop) => {
   var cpu_name = laptop["processor_name"];
   var cpu_brand = laptop["processor_brand"];
   var cpu_generation = laptop["processor_variant"];
-  var total_score = 0;
+  var score = 0;
   var gen;
 
   // check if generation is undefined cuz few laptops in the db does not have this field
@@ -57,32 +64,54 @@ const cpu_score = (laptop) => {
       gen = cpu_generation.substring(0, 1);
       // if generation first character lies between 6-9 i.e 6th gen to 9th gen then match the key
       if (gen <= 9 && gen >= 6) {
-        total_score = cpu[cpu_name] + generation[gen];
+        score = cpu[cpu_name] + generation[gen];
       } else {
         // else take first 2 characters i.e 10, 11 and 12 and then match the key
         var new_gen = cpu_generation.substring(0, 2);
-        total_score = cpu[cpu_name] + generation[new_gen];
+        score = cpu[cpu_name] + generation[new_gen];
       }
     } else {
       // Ryzen CPU are easy to find just take first 4 characters and map them
       gen = cpu_generation.substring(0, 4);
-      total_score = cpu[cpu_name] + generation[gen];
+      score = cpu[cpu_name] + generation[gen];
     }
   }
 
   // score on cpu cache
   var cpu_cache = laptop["cache"];
   if (cpu_cache !== undefined) {
-    total_score += cache[cpu_cache];
+    score += cache[cpu_cache];
   }
 
-  // If none of the criteria match then total_score becomes NaN hence check to find
+  // If none of the criteria match then score becomes NaN hence check to find
   // and provide default value of processor alone not generation
-  if (Number.isNaN(total_score) || total_score == undefined) {
-    total_score = cpu[cpu_name];
+  if (Number.isNaN(score) || score == undefined) {
+    score = cpu[cpu_name];
   }
 
-  return total_score;
+  return score;
+};
+
+const memory_score = (laptop) => {
+  var ram_type = laptop["ram_type"];
+  var ram_size = laptop["ram"];
+  var ram_freq = laptop["ram_frequency"];
+  console.log(`ram frequency ${ram_freq} : score ${ram_frequency[ram_freq]}`);
+  var score = 0;
+
+  if (ram_type !== undefined) {
+    score += ram_generation[ram_type];
+  }
+
+  if (ram_size !== undefined) {
+    score += ram[ram_size];
+  }
+
+  if (ram_freq !== undefined) {
+    score += ram_frequency[ram_freq];
+  }
+
+  return score;
 };
 
 export default rankingSystem;
