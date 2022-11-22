@@ -99,6 +99,12 @@ const cache = {
   20: 5,
   24: 5,
   32: 5,
-}
+};
 
-export { cpu, generation, ram, ram_frequency, cache };
+const ram_generation = {
+  DDR3: 2,
+  DDR4: 4,
+  DDR5: 5,
+};
+
+export { cpu, generation, cache, ram, ram_frequency, ram_generation };
