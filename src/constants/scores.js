@@ -21,16 +21,16 @@ const cpu = {
 };
 
 const generation = {
-  6: 1,
+  6: 2,
   N4500: 1,
   N5030: 1,
   N4020: 1,
-  7: 2,
-  8: 4,
-  9: 4,
-  10: 6,
-  11: 8,
-  12: 10,
+  7: 3,
+  8: 5,
+  9: 6,
+  10: 8,
+  11: 10,
+  12: 12,
   3020: 1,
   3250: 2,
   3450: 2,
@@ -84,4 +84,21 @@ const ram_frequency = {
   5400: 3,
 };
 
-export { cpu, generation, ram, ram_frequency };
+const cache = {
+  4: 1,
+  5: 1,
+  6: 2,
+  8: 2,
+  9: 2,
+  10: 3,
+  11: 3,
+  12: 3,
+  16: 4,
+  18: 4,
+  19: 4,
+  20: 5,
+  24: 5,
+  32: 5,
+}
+
+export { cpu, generation, ram, ram_frequency, cache };

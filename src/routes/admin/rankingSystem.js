@@ -10,14 +10,11 @@ WIP: Only CPU is scored as of now.
 */
 
 import Laptop from "../../models/laptop";
-import { cpu, generation } from "../../constants/scores";
+import { cache, cpu, generation } from "../../constants/scores";
 
 const rankingSystem = async (req, res) => {
   // fetch all laptops first
-  var laptops = await Laptop.find({}).limit(100);
-
-  // invalid array for finding how many laptops are missed to score correct (temporary solution)
-  var invalid = [];
+  var laptops = await Laptop.find({});
 
   // iterate through all laptops
   for (var i = 0; i < laptops.length; i++) {
@@ -53,13 +50,18 @@ const rankingSystem = async (req, res) => {
       }
     }
 
-    // If none of the generation match then total_score becomes NaN hence check to find
+    // score on cpu cache
+    var cpu_cache = laptops[i]['cache'];
+    if(cpu_cache !== undefined){
+      total_score += cache[cpu_cache]
+    }
+
+    // If none of the criteria match then total_score becomes NaN hence check to find
     // and provide default value of processor alone not generation
     if (Number.isNaN(total_score) || total_score == undefined) {
       total_score = cpu[cpu_name];
     }
 
-    console.log(laptops[i]['cache'])
 
     // try to update the doc with new field
     try {
@@ -74,8 +76,9 @@ const rankingSystem = async (req, res) => {
       throw e;
     }
   }
-  // TODO: Fix intel cpu generation score count logic: total 115 laptops affected
-  res.send(invalid);
+  return res.json({
+    "msg": "Updated"
+  })
 };
 
 export default rankingSystem;
