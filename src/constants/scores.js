@@ -1,7 +1,8 @@
 const cpu = {
-  "Pentium Dual Core": 1,
-  "Pentium Silver": 1,
-  "Pentium Quad Core": 2,
+  "Athlon Dual Core": 2,
+  "Pentium Dual Core": 2,
+  "Pentium Silver": 2,
+  "Pentium Quad Core": 3,
   "Core i3": 4,
   "Core i5": 6,
   "Core i7": 8,
@@ -79,6 +80,7 @@ const ram_frequency = {
   3200: 3,
   3733: 3,
   4266: 3,
+  4267: 3,
   4268: 3,
   4800: 3,
   5400: 3,
@@ -102,9 +104,15 @@ const cache = {
 };
 
 const ram_generation = {
+  LPDDR3: 2,
   DDR3: 2,
+  LPDDR4: 3,
+  LPDDR4X: 3.5,
   DDR4: 4,
+  LPDDR5: 4,
+  LPDDR5X: 4.5,
   DDR5: 5,
+
 };
 
 const ssd = {
@@ -119,8 +127,19 @@ const ssd_capacity = {
   512: 8,
   1024: 9,
   2048: 10,
-  "1TB": 9,
+  "1TB": 10,
   "2TB": 10,
+  "1 TB": 10,
+  "2 TB": 10,
 };
 
-export { cpu, generation, cache, ram, ram_frequency, ram_generation };
+export {
+  cpu,
+  generation,
+  cache,
+  ram,
+  ram_frequency,
+  ram_generation,
+  ssd,
+  ssd_capacity,
+};

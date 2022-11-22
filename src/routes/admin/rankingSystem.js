@@ -5,7 +5,8 @@ Scores are in src/constants/scores.js
 
 This endpoint fetches all laptops and assigns it score based on its cpu, memory, storage, networking and entertainment properties.
 
-WIP: Only CPU is scored as of now.
+WIP: Only CPU, RAM and Storage is scored as of now.
+     Connectivity, Multimedia, Portaibility and Post Sales support is remaining.
 
 */
 
@@ -17,23 +18,43 @@ import {
   ram,
   ram_frequency,
   ram_generation,
+  ssd,
+  ssd_capacity,
 } from "../../constants/scores";
 
 const rankingSystem = async (req, res) => {
   // fetch all laptops first
-  var laptops = await Laptop.find({}).limit(2);
+  var laptops = await Laptop.find();
 
   // iterate through all laptops
   for (var i = 0; i < laptops.length; i++) {
+
+    var isApple = laptops[i]['laptop_name'].split(" ")[0].toLowerCase();
+
+    if(isApple === "apple"){
+      // console.log(`found apple. skipping...`);
+      continue;
+    }
+
     var cpu_total_score = cpu_score(laptops[i]);
     var memory_total_score = memory_score(laptops[i]);
+    var storage_total_score = storage_score(laptops[i]);
+
+    var total_score = cpu_total_score + memory_total_score + storage_total_score;
+    // console.log(laptops[i]['_id']);
+    // console.log(`cpu: ${cpu_total_score}\nmemory: ${memory_total_score}\nstorage: ${storage_total_score}\ntotal: ${total_score}`);
 
     // try to update the doc with new field
     try {
       await Laptop.findByIdAndUpdate(
         laptops[i]["id"],
         {
-          $set: { cpu_score: cpu_total_score },
+          $set: {
+            cpu_score: cpu_total_score,
+            memory_score: memory_total_score,
+            storage_score: storage_total_score,
+            total_score: total_score,
+          },
         },
         { new: true }
       );
@@ -87,6 +108,11 @@ const cpu_score = (laptop) => {
   // and provide default value of processor alone not generation
   if (Number.isNaN(score) || score == undefined) {
     score = cpu[cpu_name];
+
+    // if processor is also not matched then defaults to zero
+    if (Number.isNaN(score) || score == undefined) {
+      score = 0;
+    }
   }
 
   return score;
@@ -96,7 +122,6 @@ const memory_score = (laptop) => {
   var ram_type = laptop["ram_type"];
   var ram_size = laptop["ram"];
   var ram_freq = laptop["ram_frequency"];
-  console.log(`ram frequency ${ram_freq} : score ${ram_frequency[ram_freq]}`);
   var score = 0;
 
   if (ram_type !== undefined) {
@@ -109,6 +134,33 @@ const memory_score = (laptop) => {
 
   if (ram_freq !== undefined) {
     score += ram_frequency[ram_freq];
+  }
+
+  return score;
+};
+
+const storage_score = (laptop) => {
+  var isSSD = laptop["ssd"];
+  var ssd_size = laptop["ssd_capacity"];
+  var score = 0;
+
+  if (isSSD === undefined && ssd_size === undefined) {
+    isSSD = "No";
+    ssd_size = 64;
+  }
+  if (isSSD !== undefined) {
+    score += ssd[isSSD];
+  }
+  if (ssd_size !== undefined) {
+    var size;
+    if(ssd_size.includes("TB")){
+      ssd_size = ssd_size.split("TB")[0];
+      size = ssd_size * 1024;
+    }
+    else{
+      size = ssd_size.split("GB")[0];
+    }
+    score += ssd_capacity[parseInt(size)];
   }
 
   return score;
