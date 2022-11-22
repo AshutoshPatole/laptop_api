@@ -107,4 +107,20 @@ const ram_generation = {
   DDR5: 5,
 };
 
+const ssd = {
+  Yes: 5,
+  No: 2,
+};
+
+const ssd_capacity = {
+  64: 2,
+  128: 3,
+  256: 6,
+  512: 8,
+  1024: 9,
+  2048: 10,
+  "1TB": 9,
+  "2TB": 10,
+};
+
 export { cpu, generation, cache, ram, ram_frequency, ram_generation };
