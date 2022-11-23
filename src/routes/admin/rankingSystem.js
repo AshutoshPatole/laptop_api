@@ -6,7 +6,7 @@ Scores are in src/constants/scores.js
 This endpoint fetches all laptops and assigns it score based on its cpu, memory, storage, networking and entertainment properties.
 
 WIP: Only CPU, RAM and Storage is scored as of now.
-     Connectivity, Multimedia, Portaibility and Post Sales support is remaining.
+    TODO: Connectivity, Multimedia, Portaibility and Post Sales support is remaining.
 
 */
 
@@ -22,16 +22,16 @@ import {
   ssd_capacity,
 } from "../../constants/scores";
 
-const rankingSystem = async (req, res) => {
+const rankingSystem = async (_req, res) => {
   // fetch all laptops first
   var laptops = await Laptop.find();
 
   // iterate through all laptops
   for (var i = 0; i < laptops.length; i++) {
 
-    var isApple = laptops[i]['laptop_name'].split(" ")[0].toLowerCase();
+    var brand_name = laptops[i]['laptop_name'].split(" ")[0];
 
-    if(isApple === "apple"){
+    if(brand_name.toLowerCase() === "apple"){
       // console.log(`found apple. skipping...`);
       continue;
     }
@@ -54,6 +54,7 @@ const rankingSystem = async (req, res) => {
             memory_score: memory_total_score,
             storage_score: storage_total_score,
             total_score: total_score,
+            brand_name: brand_name,
           },
         },
         { new: true }

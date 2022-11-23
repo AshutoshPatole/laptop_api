@@ -4,6 +4,7 @@ const laptopSchema = Schema(
   {
     img: { type: String },
     price: { type: Number },
+    brand_name: {type: String},
     laptop_name: { type: String },
     sales_package: { type: String },
     model_number: { type: String },
