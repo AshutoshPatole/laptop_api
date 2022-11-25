@@ -1,5 +1,5 @@
 import STATUS_CODE from '../../constants/statusCode'
-import Joi from "joi";
+import Joi from 'joi'
 
 const laptopValidate = (req, res, next) => {
     const lapSchema = Joi.object({
@@ -54,15 +54,16 @@ const laptopValidate = (req, res, next) => {
         covered_in_warranty: Joi.string().required(),
         not_covered_in_warranty: Joi.string().required(),
         domestic_warranty: Joi.string().required(),
-    });
+    })
 
-    const { error, value } = lapSchema.validate(req.body);
-    console.log(req.body);
-    if (error) return res.status(STATUS_CODE.BAD_REQUEST).json({
-        message: error.details[0].message
-    });
-    req.body = value;
-    next();
-};
+    const { error, value } = lapSchema.validate(req.body)
+    console.log(req.body)
+    if (error)
+        return res.status(STATUS_CODE.BAD_REQUEST).json({
+            message: error.details[0].message,
+        })
+    req.body = value
+    next()
+}
 
-export default laptopValidate;
+export default laptopValidate
