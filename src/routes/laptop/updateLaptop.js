@@ -11,7 +11,7 @@ import Laptop from "../../models/laptop";
 
 const updateLaptop = async (req, res) => {
   if (req.params.laptopID == null) {
-    return status(STATUS_CODES.BAD_REQUEST).json({
+    return res.status(STATUS_CODES.BAD_REQUEST).json({
       message: "Laptop ID cannot be null",
     });
   }
