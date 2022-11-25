@@ -19,16 +19,27 @@ const analytics = async (_req, res) => {
     { $match: { _id: { $ne: null }, count: { $gt: 1 } } },
   ]).sort({ count: -1 });
 
-  for (let i = 0; i < processor_analytics.length; i++){
-    unknown_processor -= processor_analytics[i]['count']
+  for (let i = 0; i < processor_analytics.length; i++) {
+    unknown_processor -= processor_analytics[i]["count"];
   }
   const unscored_processor_list = await Laptop.aggregate([
-    {$project: {_id: 1, laptop_name: 1, price: 1, cpu_score: 1}},
-    {$match: {cpu_score: 0}}
+    { $project: { _id: 1, laptop_name: 1, price: 1, cpu_score: 1 } },
+    { $match: { cpu_score: 0 } },
   ]);
 
+  const unscored_memory_list = await Laptop.aggregate([
+    { $project: { _id: 1, laptop_name: 1, price: 1, memory_score: 1 } },
+    { $match: { cpu_score: 0 } },
+  ]);
+  const unscored_storage_list = await Laptop.aggregate([
+    { $project: { _id: 1, laptop_name: 1, price: 1, storage_score: 1 } },
+    { $match: { cpu_score: 0 } },
+  ]);
+  const unscored_total_list = await Laptop.aggregate([
+    { $project: { _id: 1, laptop_name: 1, price: 1, total_score: 1 } },
+    { $match: { cpu_score: 0 } },
+  ]);
   const unscored_processor_count = unscored_processor_list.length;
-
 
   res.json({
     total: total_laptops,
@@ -37,7 +48,10 @@ const analytics = async (_req, res) => {
     processor_analytics: processor_analytics,
     unknown_processor: unknown_processor,
     unscored_processor_count: unscored_processor_count,
-    unscored_processor_list: unscored_processor_list,
+    unscored_memory_list: unscored_memory_list,
+    unscored_total_list: unscored_total_list,
+    unscored_storage_list: unscored_storage_list,
+
   });
 };
 
