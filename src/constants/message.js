@@ -6,7 +6,8 @@ const SERVER = {
     LAPTOP_ALREADY_EXISTS: "Laptop already exists",
     LAPTOP_ADDED_SUCCESFULLY: "Laptop added successfully",
     CONTENT_DELETED_SUCCESSFULLY: "Content was deleted",
-    INVALID_TOKEN: "Invalid Token"
+    INVALID_TOKEN: "Invalid Token",
+    FILTER_ERROR: "Filtering error"
 }
 
 export default SERVER;

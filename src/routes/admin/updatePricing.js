@@ -42,10 +42,8 @@ const updatePricing = async (req, res) => {
         console.log(err);
       }
     }
-    console.log("Updated");
-
     res.json({
-      msg: "updated",
+      message: "Price updated",
     });
   });
 };

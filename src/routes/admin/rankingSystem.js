@@ -64,7 +64,7 @@ const rankingSystem = async (_req, res) => {
     }
   }
   return res.json({
-    msg: "Updated",
+    message: "Scores Updated",
   });
 };
 

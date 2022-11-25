@@ -7,6 +7,8 @@ Endpoint for fetching laptops based on :
 sort by less price first
 */
 
+import SERVER from "../../constants/message";
+import STATUS_CODES from "../../constants/statusCode";
 import Laptop from "../../models/laptop";
 
 const filterBySpec = async (req, res) => {
@@ -22,7 +24,9 @@ const filterBySpec = async (req, res) => {
     }).sort({ price: 1 });
     return res.send(laptops);
   } catch (e) {
-    return res.send("Could not filter laptops.");
+    return res.status(STATUS_CODES.NO_CONTENT).json({
+      message: SERVER.FILTER_ERROR,
+    });
   }
 };
 

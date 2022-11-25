@@ -28,14 +28,16 @@ const getAllLaptops = async (_req, res) => {
   if (queryObject.model != undefined) {
     const laptops = await Laptop.find({
       model_number: { $regex: new RegExp(queryObject.model, "i") },
-      part_number: { $regex: new RegExp(queryObject.part, "i") },  
+      part_number: { $regex: new RegExp(queryObject.part, "i") },
     })
       .skip(queryObject.offset)
       .limit(LAPTOP_LIMIT);
     res.send(laptops);
     return;
   }
-  const laptops = await Laptop.find({}).skip(queryObject.offset).limit(LAPTOP_LIMIT);
+  const laptops = await Laptop.find({})
+    .skip(queryObject.offset)
+    .limit(LAPTOP_LIMIT);
   res.send(laptops);
 };
 
