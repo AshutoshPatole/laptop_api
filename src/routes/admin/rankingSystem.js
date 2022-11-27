@@ -19,6 +19,8 @@ import {
     ram,
     ram_frequency,
     ram_generation,
+    screen_resolution,
+    screen_size,
     ssd,
     ssd_capacity,
     wifi,
@@ -39,52 +41,45 @@ const rankingSystem = async (_req, res) => {
             continue
         }
 
-        // var cpu_total_score = cpu_score(laptops[i])
-        // var memory_total_score = memory_score(laptops[i])
-        // var storage_total_score = storage_score(laptops[i])
-        // let connectivity_total_score = connectivity_score(laptops[i])
+        var cpu_total_score = cpu_score(laptops[i])
+        var memory_total_score = memory_score(laptops[i])
+        var storage_total_score = storage_score(laptops[i])
+        let connectivity_total_score = connectivity_score(laptops[i])
+        let multimedia__total_score = multimedia_score(laptops[i])
 
-        // var total_score =
-        //     cpu_total_score +
-        //     memory_total_score +
-        //     storage_total_score +
-        //     connectivity_total_score
+        var total_score =
+            cpu_total_score +
+            memory_total_score +
+            storage_total_score +
+            connectivity_total_score + multimedia__total_score
 
-        let connective = laptops[i]['screen_size']
-        console.log(connective)
-        if (connective !== undefined) {
-            fs.appendFile('screen.txt', connective + '\r\n', (err) => {
-                if (err) {
-                    return console.log(err)
-                }
-            })
-        }
-        let res = laptops[i]['screen_resolution']
-        console.log(res)
-        if (res !== undefined) {
-            fs.appendFile('res.txt', res + '\r\n', (err) => {
-                if (err) {
-                    return console.log(err)
-                }
-            })
-        }
+        // let connective = laptops[i]['screen_size']
+        // console.log(connective)
+        // if (connective !== undefined) {
+        //     fs.appendFile('screen.txt', connective + '\r\n', (err) => {
+        //         if (err) {
+        //             return console.log(err)
+        //         }
+        //     })
+        // }
 
         // try to update the doc with new field
         try {
-            // await Laptop.findByIdAndUpdate(
-            //     laptops[i]['id'],
-            //     {
-            //         $set: {
-            //             cpu_score: cpu_total_score,
-            //             memory_score: memory_total_score,
-            //             storage_score: storage_total_score,
-            //             total_score: total_score,
-            //             connectivity_score: connectivity_total_score,
-            //             brand_name: brand_name,
-            //         },
-            //     },
-            //     { new: true }
-            // )
+            await Laptop.findByIdAndUpdate(
+                laptops[i]['id'],
+                {
+                    $set: {
+                        cpu_score: cpu_total_score,
+                        memory_score: memory_total_score,
+                        storage_score: storage_total_score,
+                        total_score: total_score,
+                        connectivity_score: connectivity_total_score,
+                        multimedia_score: multimedia__total_score,
+                        brand_name: brand_name,
+                    },
+                },
+                { new: true }
+            )
         } catch (e) {
             throw e
         }
@@ -196,7 +191,7 @@ const connectivity_score = (laptop) => {
     let wifi_name = laptop['wireless_lan']
     let bluetooth_version = laptop['bluetooth']
     let score = 0
-    if (wifi !== undefined && bluetooth !== undefined) {
+    if (wifi_name !== undefined && bluetooth_version !== undefined) {
         let w = wifi[wifi_name]
         let b = bluetooth[bluetooth_version]
         if (w === undefined) {
@@ -207,6 +202,24 @@ const connectivity_score = (laptop) => {
         }
         score += wifi[wifi_name]
         score += bluetooth[bluetooth_version]
+    }
+
+    return score
+}
+
+const multimedia_score = (laptop) => {
+    let size = laptop['screen_size']
+    let resolution = laptop['screen_resolution']
+    let score = 0
+    if (size !== undefined && resolution !== undefined) {
+        let s = screen_size[size]
+        let r = screen_resolution[resolution]
+        if (s !== undefined) {
+            score += screen_size[size]
+        }
+        if (r !== undefined) {
+            score += screen_resolution[resolution]
+        }
     }
 
     return score
