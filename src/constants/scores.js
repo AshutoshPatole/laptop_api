@@ -132,6 +132,14 @@ const ssd_capacity = {
     '2 TB': 10,
 }
 
+const wifi = {
+    "802.11ax": 1,
+    "802.11ac": 1,
+    "Wi-Fi 6": 1,
+    "Wi-Fi 5": 1,
+
+};
+
 export {
     cpu,
     generation,

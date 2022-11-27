@@ -22,6 +22,8 @@ import {
     ssd_capacity,
 } from '../../constants/scores'
 
+import fs from 'fs'
+
 const rankingSystem = async (_req, res) => {
     // fetch all laptops first
     var laptops = await Laptop.find()
@@ -43,6 +45,18 @@ const rankingSystem = async (_req, res) => {
             cpu_total_score + memory_total_score + storage_total_score
         // console.log(laptops[i]['_id']);
         // console.log(`cpu: ${cpu_total_score}\nmemory: ${memory_total_score}\nstorage: ${storage_total_score}\ntotal: ${total_score}`);
+
+        // // TODO: Remove this debug lines
+        // let connective = laptops[i]['wireless_lan']
+        // console.log(connective);
+        // if (connective !== undefined) {
+        //     fs.appendFile('wifi.txt', connective + '\r\n', (err) => {
+        //         if (err) {
+        //             return console.log(err)
+        //         }
+        //     })
+        // }
+        // // TODO till here
 
         // try to update the doc with new field
         try {
