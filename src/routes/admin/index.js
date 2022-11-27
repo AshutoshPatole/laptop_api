@@ -3,7 +3,7 @@ import cache from '../../helper/express_cache'
 import analytics from './analytics'
 import bulkInsert from './bulk-upload'
 import rankingSystem from './rankingSystem'
-import update from './temp'
+import update from './dynamicUpdate'
 import updatePricing from './updatePricing'
 
 const adminRouter = Router()

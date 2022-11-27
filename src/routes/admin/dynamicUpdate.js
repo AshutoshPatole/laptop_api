@@ -7,7 +7,7 @@ import Laptop from '../../models/laptop'
 
 const update = async (_req, res) => {
     // Read the newly extracted file with updated pricing.
-    readJSONFile('./csv.json', async function (err, json) {
+    readJSONFile('./csvjson.json', async function (err, json) {
         if (err) {
             throw err
         }
@@ -22,8 +22,8 @@ const update = async (_req, res) => {
                     },
                     {
                         $set: {
-                            bluetooth: json[i]['bluetooth'],
-                            wireless_lan: json[i]['wireless_lan'],
+                            screen_size: json[i]['screen_size'],
+                            screen_resolution: json[i]['screen_resolution'],
                         },
                     }
                 )

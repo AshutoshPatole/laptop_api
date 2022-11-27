@@ -39,43 +39,52 @@ const rankingSystem = async (_req, res) => {
             continue
         }
 
-        var cpu_total_score = cpu_score(laptops[i])
-        var memory_total_score = memory_score(laptops[i])
-        var storage_total_score = storage_score(laptops[i])
-        let connectivity_total_score = connectivity_score(laptops[i])
+        // var cpu_total_score = cpu_score(laptops[i])
+        // var memory_total_score = memory_score(laptops[i])
+        // var storage_total_score = storage_score(laptops[i])
+        // let connectivity_total_score = connectivity_score(laptops[i])
 
-        var total_score =
-            cpu_total_score +
-            memory_total_score +
-            storage_total_score +
-            connectivity_total_score
+        // var total_score =
+        //     cpu_total_score +
+        //     memory_total_score +
+        //     storage_total_score +
+        //     connectivity_total_score
 
-        // let connective = laptops[i]['bluetooth']
-        // console.log(connective)
-        // if (connective !== undefined) {
-        //     fs.appendFile('bluetooth.txt', connective + '\r\n', (err) => {
-        //         if (err) {
-        //             return console.log(err)
-        //         }
-        //     })
-        // }
+        let connective = laptops[i]['screen_size']
+        console.log(connective)
+        if (connective !== undefined) {
+            fs.appendFile('screen.txt', connective + '\r\n', (err) => {
+                if (err) {
+                    return console.log(err)
+                }
+            })
+        }
+        let res = laptops[i]['screen_resolution']
+        console.log(res)
+        if (res !== undefined) {
+            fs.appendFile('res.txt', res + '\r\n', (err) => {
+                if (err) {
+                    return console.log(err)
+                }
+            })
+        }
 
         // try to update the doc with new field
         try {
-            await Laptop.findByIdAndUpdate(
-                laptops[i]['id'],
-                {
-                    $set: {
-                        cpu_score: cpu_total_score,
-                        memory_score: memory_total_score,
-                        storage_score: storage_total_score,
-                        total_score: total_score,
-                        connectivity_score: connectivity_total_score,
-                        brand_name: brand_name,
-                    },
-                },
-                { new: true }
-            )
+            // await Laptop.findByIdAndUpdate(
+            //     laptops[i]['id'],
+            //     {
+            //         $set: {
+            //             cpu_score: cpu_total_score,
+            //             memory_score: memory_total_score,
+            //             storage_score: storage_total_score,
+            //             total_score: total_score,
+            //             connectivity_score: connectivity_total_score,
+            //             brand_name: brand_name,
+            //         },
+            //     },
+            //     { new: true }
+            // )
         } catch (e) {
             throw e
         }
