@@ -12,7 +12,7 @@ const update = async (_req, res) => {
             throw err
         }
 
-        for (var i = 0; i < json.length; i++) {
+        for (let i = 0; i < json.length; i++) {
             // iterate through the list and find if the laptop is present
 
             try {

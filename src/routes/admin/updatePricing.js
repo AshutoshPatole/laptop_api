@@ -11,12 +11,12 @@ const updatePricing = async (req, res) => {
         if (err) {
             throw err
         }
-        var laptop_name
-        var model_number
-        var color
-        var price
+        let laptop_name
+        let model_number
+        let color
+        let price
 
-        for (var i = 0; i < json.length; i++) {
+        for (let i = 0; i < json.length; i++) {
             console.log(`Updating ${json[i]['laptop_name']}`)
             laptop_name = json[i]['laptop_name']
             model_number = json[i]['model_number']

@@ -11,14 +11,14 @@ const bulkInsert = async (_req, res) => {
             throw err
         }
         //  Read all laptops one by one from the json
-        for (var i = 0; i < json.length; i++) {
-            var model_number = json[i]['model_number']
-            var part_number = json[i]['part_number']
-            var color = json[i]['color']
+        for (let i = 0; i < json.length; i++) {
+            let model_number = json[i]['model_number']
+            let part_number = json[i]['part_number']
+            let color = json[i]['color']
             let invalid_laptops = 0
             // find if a laptop is already present in the db with same model_number, part_numer and color
             // and get the count
-            var isDupFound = await Laptop.find({
+            let isDupFound = await Laptop.find({
                 model_number: model_number,
                 part_number: part_number,
                 color: color,
@@ -30,7 +30,7 @@ const bulkInsert = async (_req, res) => {
             } else {
                 // if laptop does not exists then save it in db
                 try {
-                    var new_lap = await Laptop(json[i])
+                    let new_lap = await Laptop(json[i])
                     new_lap.save()
                 } catch (e) {
                     throw e

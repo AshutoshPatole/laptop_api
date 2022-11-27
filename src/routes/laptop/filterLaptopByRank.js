@@ -10,7 +10,7 @@ import Laptop from '../../models/laptop'
 
 const filterByRank = async (req, res) => {
     const { min, max } = req.query
-    var laptop
+    let laptop
     if (!isNumeric(min) && !isNumeric(max)) {
         return res.status(STATUS_CODES.BAD_REQUEST).json({
             message: 'Price query min or max required.',

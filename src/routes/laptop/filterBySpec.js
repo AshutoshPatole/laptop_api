@@ -17,7 +17,7 @@ const filterBySpec = async (req, res) => {
         return res.send('Required brand, processor and price query')
     }
     try {
-        var laptops = await Laptop.find({
+        let laptops = await Laptop.find({
             laptop_name: { $regex: brand, $options: 'i' },
             processor_name: { $regex: processor, $options: 'i' },
             price: { $lte: price },

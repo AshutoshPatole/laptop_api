@@ -30,24 +30,24 @@ import fs from 'fs'
 
 const rankingSystem = async (_req, res) => {
     // fetch all laptops first
-    var laptops = await Laptop.find()
+    let laptops = await Laptop.find()
 
     // iterate through all laptops
-    for (var i = 0; i < laptops.length; i++) {
-        var brand_name = laptops[i]['laptop_name'].split(' ')[0]
+    for (let i = 0; i < laptops.length; i++) {
+        let brand_name = laptops[i]['laptop_name'].split(' ')[0]
 
         if (brand_name.toLowerCase() === 'apple') {
             // console.log(`found apple. skipping...`);
             continue
         }
 
-        var cpu_total_score = cpu_score(laptops[i])
-        var memory_total_score = memory_score(laptops[i])
-        var storage_total_score = storage_score(laptops[i])
+        let cpu_total_score = cpu_score(laptops[i])
+        let memory_total_score = memory_score(laptops[i])
+        let storage_total_score = storage_score(laptops[i])
         let connectivity_total_score = connectivity_score(laptops[i])
         let multimedia__total_score = multimedia_score(laptops[i])
 
-        var total_score =
+        let total_score =
             cpu_total_score +
             memory_total_score +
             storage_total_score +
@@ -91,10 +91,10 @@ const rankingSystem = async (_req, res) => {
 
 const cpu_score = (laptop) => {
     // variables that matches with the keys of cpu and generation map defined in scores.js
-    var cpu_name = laptop['processor_name']
-    var cpu_brand = laptop['processor_brand']
-    var cpu_generation = laptop['processor_variant']
-    var score = 0
+    let cpu_name = laptop['processor_name']
+    let cpu_brand = laptop['processor_brand']
+    let cpu_generation = laptop['processor_variant']
+    let score = 0
     var gen
 
     // check if generation is undefined cuz few laptops in the db does not have this field
@@ -110,7 +110,7 @@ const cpu_score = (laptop) => {
                 score = cpu[cpu_name] + generation[gen]
             } else {
                 // else take first 2 characters i.e 10, 11 and 12 and then match the key
-                var new_gen = cpu_generation.substring(0, 2)
+                let new_gen = cpu_generation.substring(0, 2)
                 score = cpu[cpu_name] + generation[new_gen]
             }
         } else {
@@ -121,7 +121,7 @@ const cpu_score = (laptop) => {
     }
 
     // score on cpu cache
-    var cpu_cache = laptop['cache']
+    let cpu_cache = laptop['cache']
     if (cpu_cache !== undefined) {
         score += cache[cpu_cache]
     }
@@ -141,10 +141,10 @@ const cpu_score = (laptop) => {
 }
 
 const memory_score = (laptop) => {
-    var ram_type = laptop['ram_type']
-    var ram_size = laptop['ram']
-    var ram_freq = laptop['ram_frequency']
-    var score = 0
+    let ram_type = laptop['ram_type']
+    let ram_size = laptop['ram']
+    let ram_freq = laptop['ram_frequency']
+    let score = 0
 
     if (ram_type !== undefined) {
         score += ram_generation[ram_type]
@@ -162,9 +162,9 @@ const memory_score = (laptop) => {
 }
 
 const storage_score = (laptop) => {
-    var isSSD = laptop['ssd']
-    var ssd_size = laptop['ssd_capacity']
-    var score = 0
+    let isSSD = laptop['ssd']
+    let ssd_size = laptop['ssd_capacity']
+    let score = 0
 
     if (isSSD === undefined && ssd_size === undefined) {
         isSSD = 'No'
@@ -174,7 +174,7 @@ const storage_score = (laptop) => {
         score += ssd[isSSD]
     }
     if (ssd_size !== undefined) {
-        var size
+        let size
         if (ssd_size.includes('TB')) {
             ssd_size = ssd_size.split('TB')[0]
             size = ssd_size * 1024
