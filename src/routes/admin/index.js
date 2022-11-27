@@ -5,13 +5,14 @@ import bulkInsert from './bulk-upload'
 import rankingSystem from './rankingSystem'
 import update from './dynamicUpdate'
 import updatePricing from './updatePricing'
+import verifyToken from '../../middleware/verifyToken'
 
 const adminRouter = Router()
 
-adminRouter.get('/ranking', rankingSystem)
-adminRouter.get('/analytics', cache.route(), analytics)
-adminRouter.get('/update-pricing', updatePricing)
-adminRouter.get('/bulk-insert', bulkInsert)
-adminRouter.get('/update', update)
+adminRouter.get('/ranking', verifyToken, rankingSystem)
+adminRouter.get('/analytics', verifyToken, cache.route(), analytics)
+adminRouter.get('/update-pricing', verifyToken, updatePricing)
+adminRouter.get('/bulk-insert', verifyToken, bulkInsert)
+adminRouter.get('/update', verifyToken, update)
 
 export default adminRouter

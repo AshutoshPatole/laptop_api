@@ -51,7 +51,8 @@ const rankingSystem = async (_req, res) => {
             cpu_total_score +
             memory_total_score +
             storage_total_score +
-            connectivity_total_score + multimedia__total_score
+            connectivity_total_score +
+            multimedia__total_score
 
         // let connective = laptops[i]['screen_size']
         // console.log(connective)

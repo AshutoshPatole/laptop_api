@@ -3,11 +3,18 @@ import ROUTES from './constants/routes'
 import connectDatabase from './connectDB'
 import cors from 'cors'
 import dotenv from 'dotenv'
+import admin from 'firebase-admin'
 
 dotenv.config()
 const app = express()
 
 connectDatabase()
+
+let serviceAccount = require('C:\\Users\\PAshutosh\\Downloads\\key.json')
+
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+})
 
 /*  Middlewares */
 app.use(cors())
