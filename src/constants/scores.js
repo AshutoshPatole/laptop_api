@@ -133,12 +133,22 @@ const ssd_capacity = {
 }
 
 const wifi = {
-    "802.11ax": 1,
-    "802.11ac": 1,
-    "Wi-Fi 6": 1,
-    "Wi-Fi 5": 1,
+    'Wi-Fi 6(802.11ax) 2x2': 5,
+    'Wi-Fi 6(802.11ax)': 4,
+    'Wi-Fi 5(802.11ac) 2x2': 4,
+    'Wi-Fi 5(802.11ac)': 3,
+    'Wi-Fi (802.11a/b/g/n)': 2.5,
+}
 
-};
+const bluetooth = {
+    6: 5,
+    5.2: 5,
+    5.1: 4,
+    5: 3,
+    4.2: 3,
+    4.1: 2,
+    4: 2,
+}
 
 export {
     cpu,
@@ -149,4 +159,6 @@ export {
     ram_generation,
     ssd,
     ssd_capacity,
+    wifi,
+    bluetooth,
 }

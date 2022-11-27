@@ -28,6 +28,7 @@ const laptopSchema = Schema(
         cpu_score: { type: Number, default: 0 },
         memory_score: { type: Number, default: 0 },
         storage_score: { type: Number, default: 0 },
+        connectivity_score: {type: Number, default: 0},
         total_score: { type: Number, default: 0 },
         clock_speed: { type: String },
         graphic_processor: { type: String },
