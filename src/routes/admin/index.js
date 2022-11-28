@@ -6,6 +6,7 @@ import rankingSystem from './rankingSystem'
 import update from './dynamicUpdate'
 import updatePricing from './updatePricing'
 import verifyToken from '../../middleware/verifyToken'
+import createAdminUser from './createAdmin'
 
 const adminRouter = Router()
 
@@ -14,5 +15,6 @@ adminRouter.get('/analytics', verifyToken, cache.route(), analytics)
 adminRouter.get('/update-pricing', verifyToken, updatePricing)
 adminRouter.get('/bulk-insert', verifyToken, bulkInsert)
 adminRouter.get('/update', verifyToken, update)
+adminRouter.post('/create-user', createAdminUser)
 
 export default adminRouter

@@ -21,7 +21,7 @@ const isAdmin = async (req, res, next) => {
             message: 'An error occurred while getting user access. Please try again'
           }
         });
-      } 
+      }
 }
 
 export default isAdmin

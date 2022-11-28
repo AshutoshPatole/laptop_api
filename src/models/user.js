@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const UserSchema = mongoose.Schema(
   {
-    name: {
+    displayName: {
       type: String,
       required: true,
     },
@@ -19,7 +19,7 @@ const UserSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    _id: {
+    firebaseID: {
       type: String,
       required: true,
     },
