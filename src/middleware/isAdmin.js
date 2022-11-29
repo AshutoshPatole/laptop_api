@@ -1,13 +1,11 @@
 import STATUS_CODES from '../constants/statusCode'
 import Users from '../models/user'
 
-// !TODO: Fix broken isAdmin logic. How to get uid of user without passing it along the request.
 const isAdmin = async (req, res, next) => {
     try {
-        console.log(req.user)
-        const role = await Users.findById(req.user.id)
 
-        if (role['isAdmin']) {
+        const role = await Users.findOne({firebaseID: req.user.uid})
+        if (role['isAdmin'] === req.user.admin) {
             next()
         } else {
             return res.status(STATUS_CODES.FORBIDDEN).json({
