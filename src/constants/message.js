@@ -8,7 +8,7 @@ const SERVER = {
     CONTENT_DELETED_SUCCESSFULLY: 'Content was deleted',
     INVALID_TOKEN: 'Invalid Token',
     FILTER_ERROR: 'Filtering error',
-    UNAUTHORIZED: 'You are not authorized to perform this action'
+    UNAUTHORIZED: 'You are not authorized to perform this action',
 }
 
 export default SERVER

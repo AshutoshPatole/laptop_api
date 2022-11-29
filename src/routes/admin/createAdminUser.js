@@ -1,14 +1,10 @@
-import firebase from '../../firebase';
-
+import firebase from '../../firebase'
 
 const createAdminUser = async (req, res) => {
-    try{
-
-    }
-    catch(e){
+    try {
+    } catch (e) {
         throw e
     }
 }
-
 
 export default createAdminUser

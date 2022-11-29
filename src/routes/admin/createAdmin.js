@@ -8,10 +8,10 @@ const createAdminUser = async (req, res) => {
         const { email, displayName, photoURL, firebaseID } = req.body
         if (adminList.includes(email)) {
             admin.auth().setCustomUserClaims(firebaseID, { admin: true })
-            let u = await Users.findOne({email: email});
-            if(u){
+            let u = await Users.findOne({ email: email })
+            if (u) {
                 return res.status(STATUS_CODES.OK).json({
-                    message: "User already exists"
+                    message: 'User already exists',
                 })
             }
             let user = Users({
@@ -23,7 +23,7 @@ const createAdminUser = async (req, res) => {
             })
             await user.save()
             return res.status(STATUS_CODES.CREATED).json({
-                message: "User created"
+                message: 'User created',
             })
         } else {
             return res.send('You have no permission to enter this zone')

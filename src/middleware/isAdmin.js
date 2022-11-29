@@ -3,8 +3,7 @@ import Users from '../models/user'
 
 const isAdmin = async (req, res, next) => {
     try {
-
-        const role = await Users.findOne({firebaseID: req.user.uid})
+        const role = await Users.findOne({ firebaseID: req.user.uid })
         if (role['isAdmin'] === req.user.admin) {
             next()
         } else {
