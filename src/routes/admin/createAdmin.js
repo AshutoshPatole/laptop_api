@@ -4,34 +4,17 @@ import Users from '../../models/user'
 
 const createAdminUser = async (req, res) => {
     try {
-        const { email, displayName, password } = req.body
+        const { email, displayName, photoURL, firebaseID } = req.body
         if (adminList.includes(email)) {
-            admin
-                .auth()
-                .createUser({
-                    email: email,
-                    emailVerified: false,
-                    password: password,
-                    displayName: displayName,
-                })
-                .then(async (userRecord) => {
-                    let user = Users({
-                        email: email,
-                        password: password,
-                        isAdmin: true,
-                        displayName: displayName,
-                        firebaseID: userRecord.uid,
-                    })
-
-                    await user.save()
-                    admin
-                        .auth()
-                        .setCustomUserClaims(userRecord.uid, { admin: true })
-                    return res.send(userRecord)
-                })
-                .catch((error) => {
-                    console.log('Error creating new user:', error)
-                })
+            admin.auth().setCustomUserClaims(firebaseID, { admin: true })
+            let user = Users({
+                email: email,
+                displayName: displayName,
+                photoURL: photoURL,
+                firebaseID: firebaseID,
+            })
+            await user.save()
+            return res.send(user)
         } else {
             return res.send('You have no permission to enter this zone')
         }
