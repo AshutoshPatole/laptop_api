@@ -4,7 +4,9 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building..'
+                echo 'Building..';
+                sh 'npm i';
+                sh 'npm start'
             }
         }
         stage('Test') {
