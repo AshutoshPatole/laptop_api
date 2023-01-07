@@ -17,7 +17,7 @@ adminRouter.get('/analytics', verifyToken, cache.route(), analytics)
 adminRouter.get('/update-pricing', updatePricing)
 adminRouter.get('/bulk-insert', bulkInsert)
 adminRouter.get('/update', update)
-adminRouter.get('/duplicate', verifyToken, isAdmin, getDuplicates)
+adminRouter.get('/duplicate', /* verifyToken, isAdmin, */ getDuplicates)
 adminRouter.post('/create-user', createAdminUser)
 
 export default adminRouter

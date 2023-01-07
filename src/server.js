@@ -10,7 +10,7 @@ const app = express()
 
 connectDatabase()
 
-let serviceAccount = require('C:\\Users\\PAshutosh\\Downloads\\key.json')
+let serviceAccount = require('/home/ashutosh/key.json')
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
