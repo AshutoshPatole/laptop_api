@@ -5,9 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..';
-                sh 'npm i';
-                sh 'pwd && sudo docker-compose up -d '
-                sh 'npm start'
+                sh 'pwd && sudo docker-compose up --build'
             }
         }
         stage('Test') {
