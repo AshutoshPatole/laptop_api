@@ -5,8 +5,8 @@ pipeline {
         stage('Build') {
             steps {
                 echo "Building..$BUILD_NUMBER";
-                sh 'docker-compose build';
-                sh 'docker-compose up -d';
+                sh 'sudo docker-compose build';
+                sh 'sudo docker-compose up -d';
                 echo "Built..."
             }
         }
