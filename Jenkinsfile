@@ -6,6 +6,7 @@ pipeline {
             steps {
                 echo 'Building..';
                 sh 'npm i';
+                sh 'docker-compose up -d '
                 sh 'npm start'
             }
         }
