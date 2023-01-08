@@ -4,10 +4,10 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building..';
-                sh 'npm i';
-                sh 'docker-compose up -d '
-                sh 'npm start'
+                echo "Building..$BUILD_NUMBER";
+                sh 'sudo docker-compose build';
+                sh 'sudo docker-compose up -d';
+                echo "Built..."
             }
         }
         stage('Test') {

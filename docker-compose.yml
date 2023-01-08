@@ -5,3 +5,10 @@ services:
         image: redis
         ports:
             - '6379:6379'
+    api:
+        container_name: api-container
+        build: .
+        ports:
+            - '8000:8000'
+        depends_on:
+            - redis
