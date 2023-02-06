@@ -29,7 +29,7 @@ app.use('/admin', ROUTES.ADMIN)
     Dummy route to check if the API works after deployment
 */
 app.get('/', (_req, res) => {
-    return res.send('LAPIFY BACKEND Triggered from main')
+    return res.send('LAPIFY BACKEND Triggered from dev branch')
 })
 
 /* 
