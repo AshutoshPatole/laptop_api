@@ -4,11 +4,14 @@ import connectDatabase from './connectDB'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import admin from 'firebase-admin'
+import multer from 'multer'
+import storage from './helper/multer_config'
 
 dotenv.config()
 const app = express()
 
 connectDatabase()
+const upload = multer({ storage: storage })
 
 let serviceAccount = require('../key.json')
 
@@ -24,6 +27,12 @@ app.use(express.json())
 
 app.use('/laptop', ROUTES.LAPTOP)
 app.use('/admin', ROUTES.ADMIN)
+
+app.post('/upload', upload.single('file'), function (req, res, next) {
+    // Handle the file upload here
+    console.log(req.body)
+    return res.send('Uploaded')
+})
 
 /* 
     Dummy route to check if the API works after deployment
