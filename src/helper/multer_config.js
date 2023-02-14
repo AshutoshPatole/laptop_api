@@ -10,4 +10,12 @@ const storage = multer.diskStorage({
     },
 })
 
-export default storage
+const fileFilter = function (req, file, cb) {
+    const extname = path.extname(file.originalname)
+    if (extname !== '.json') {
+        return cb(new Error('Only JSON files are allowed'))
+    }
+    cb(null, true)
+}
+
+export { storage, fileFilter }
