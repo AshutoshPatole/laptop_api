@@ -6,7 +6,8 @@ const storage = multer.diskStorage({
         cb(null, path.join(__dirname, '../uploads'))
     },
     filename: function (req, file, cb) {
-        cb(null, file.originalname)
+        const currentDate = new Date().toISOString().slice(0, 10)
+        cb(null, currentDate + '.json')
     },
 })
 
