@@ -13,25 +13,25 @@ import {
     newLaptopsStore,
 } from '../../helper/multer_config'
 import uploadFile from './fileUpload'
+import updateLaptop from './updateLaptop'
 
 const adminRouter = Router()
 
-const newLaptopFile = multer({
+const newLap = multer({
     storage: newLaptopsStore,
     fileFilter: fileFilter,
 })
 
+// ! TODO: Fix broken multer config. The file is not getting uploaded to pricingStore Storage engine
 const pricingFile = multer({ storage: pricingStore, fileFilter: fileFilter })
 
 adminRouter.get('/ranking', rankingSystem)
 adminRouter.get('/analytics', cache.route(), analytics)
 adminRouter.get('/update-pricing', updatePricing)
+adminRouter.post('/:laptopID', updateLaptop)
 adminRouter.get('/bulk-insert', bulkInsert)
-adminRouter.post(
-    '/upload-new-file',
-    newLaptopFile.single('newfile'),
-    uploadFile
-)
+
+adminRouter.post('/upload-new-file', newLap.single('newfile'), uploadFile)
 adminRouter.get('/update', updatePricing)
 adminRouter.get('/duplicate', getDuplicates)
 adminRouter.post('/create-user', createAdminUser)
