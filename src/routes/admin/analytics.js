@@ -1,3 +1,7 @@
+/* 
+this route is for analytics purposes alone. Not needed to include in the app as of now
+*/
+
 import Laptop from '../../models/laptop'
 
 const analytics = async (_req, res) => {

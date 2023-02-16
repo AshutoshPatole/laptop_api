@@ -4,11 +4,9 @@ Admin endpoint for updating score of laptops in bulk
 Scores are in src/constants/scores.js
 
 This endpoint fetches all laptops and assigns it score based on its cpu, memory, storage, networking and entertainment properties.
-
-WIP: Only CPU, RAM and Storage is scored as of now.
-    TODO: Connectivity, Multimedia, Portaibility and Post Sales support is remaining.
-
 */
+
+// ! TODO: Portaibility and Post Sales support is remaining.
 
 import Laptop from '../../models/laptop'
 import {

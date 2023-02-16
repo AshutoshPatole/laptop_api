@@ -1,5 +1,7 @@
 /* 
 Endpoint to insert bulk laptop json file to the database
+
+WIP: HOLD this endpoint since it is not working as expected
 */
 
 import readJSONFile from '../../helper/read_json'

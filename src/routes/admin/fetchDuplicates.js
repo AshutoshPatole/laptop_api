@@ -9,6 +9,8 @@ Criteria for duplicate:
 - Same price
 
 if everything matches then return these values along with count in order of higher duplicate count first
+
+example: http://localhost:8000/admin/duplicate'
 */
 import Laptop from '../../models/laptop'
 

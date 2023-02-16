@@ -1,5 +1,8 @@
 /* 
 Endpoint for bulk updating the laptop price in db.
+
+POST: http://localhost:8000/admin/upload-pricing-file
+This requires a *.json file appended in the body and the <input> field type in html should be named as "file"
 */
 
 import readJSONFile from '../../helper/read_json'
