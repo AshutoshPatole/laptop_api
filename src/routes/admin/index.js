@@ -14,6 +14,7 @@ import {
 } from '../../helper/multer_config'
 import uploadFile from './fileUpload'
 import updateLaptop from './updateLaptop'
+import deleteLaptop from './deleteLaptop'
 
 const adminRouter = Router()
 
@@ -36,4 +37,7 @@ adminRouter.get('/update', updatePricing)
 adminRouter.get('/duplicate', getDuplicates)
 adminRouter.post('/create-user', createAdminUser)
 adminRouter.post('/upload', pricingFile.single('file'), uploadFile)
+
+adminRouter.delete('/:laptopID', deleteLaptop)
+
 export default adminRouter
