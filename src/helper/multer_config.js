@@ -5,15 +5,29 @@ This file contains configuration for storing files uploaded from '/admin/upload'
 import multer from 'multer'
 import path from 'path'
 
-// Using the diskStorage for storing files in uploads directory
-const storage = multer.diskStorage({
+// multer config for uploading pricing json files
+const pricingStore = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, path.join(__dirname, '../uploads'))
+        cb(null, path.join(__dirname, '../uploads/pricing'))
     },
     // the filename will be <date>.json format. This format is used by '/admin/update-pricing' endpoint
     filename: function (req, file, cb) {
         const currentDate = new Date().toISOString().slice(0, 10)
-        cb(null, currentDate + '.json')
+        cb(null, currentDate + '-updatePricing.json')
+        console.log(file.originalname)
+    },
+})
+
+// multer config for uploading new laptops json files
+const newLaptopsStore = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, path.join(__dirname, '../uploads/new'))
+    },
+    // the filename will be <date>.json format. This format is used by '/admin/new-laptop' endpoint
+    filename: function (req, file, cb) {
+        const currentDate = new Date().toISOString().slice(0, 10)
+        cb(null, currentDate + '-newLaptops.json')
+        console.log(file.originalname)
     },
 })
 
@@ -26,4 +40,4 @@ const fileFilter = function (req, file, cb) {
     cb(null, true)
 }
 
-export { storage, fileFilter }
+export { pricingStore, newLaptopsStore, fileFilter }

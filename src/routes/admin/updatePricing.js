@@ -11,7 +11,11 @@ const updatePricing = async (req, res) => {
     const currentDate = new Date().toISOString().slice(0, 10)
 
     readJSONFile(
-        path.join(__dirname, '../../uploads', currentDate + '.json'),
+        path.join(
+            __dirname,
+            '../../uploads',
+            currentDate + '-updatePricing.json'
+        ),
         async function (err, json) {
             if (err) {
                 throw err
