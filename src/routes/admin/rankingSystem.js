@@ -14,6 +14,7 @@ import {
     cache,
     cpu,
     generation,
+    graphics_cards,
     ram,
     ram_frequency,
     ram_generation,
@@ -44,18 +45,20 @@ const rankingSystem = async (_req, res) => {
         let storage_total_score = storage_score(laptops[i])
         let connectivity_total_score = connectivity_score(laptops[i])
         let multimedia__total_score = multimedia_score(laptops[i])
+        let graphics_total_score = graphics_score(laptops[i])
 
         let total_score =
             cpu_total_score +
             memory_total_score +
             storage_total_score +
             connectivity_total_score +
-            multimedia__total_score
+            multimedia__total_score +
+            graphics_total_score
 
-        // let connective = laptops[i]['screen_size']
-        // console.log(connective)
+        // let connective = laptops[i]['graphic_processor']
+        // console.log(connective + '=' + mem_type)
         // if (connective !== undefined) {
-        //     fs.appendFile('screen.txt', connective + '\r\n', (err) => {
+        //     fs.appendFile('graphics.txt', connective + '\r\n', (err) => {
         //         if (err) {
         //             return console.log(err)
         //         }
@@ -75,6 +78,7 @@ const rankingSystem = async (_req, res) => {
                         connectivity_score: connectivity_total_score,
                         multimedia_score: multimedia__total_score,
                         brand_name: brand_name,
+                        graphics_core: graphics_total_score,
                     },
                 },
                 { new: true }
@@ -222,6 +226,13 @@ const multimedia_score = (laptop) => {
     }
 
     return score
+}
+
+// ! TODO: Fix graphics card score not updating for few laptops
+const graphics_score = (laptop) => {
+    let graphics = laptop['graphic_processor'].toLowerCase()
+
+    return graphics_cards[graphics] || 0
 }
 
 export default rankingSystem
