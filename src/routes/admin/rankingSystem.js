@@ -6,7 +6,7 @@ Scores are in src/constants/scores.js
 This endpoint fetches all laptops and assigns it score based on its cpu, memory, storage, networking and entertainment properties.
 */
 
-// ! TODO: Portaibility and Post Sales support is remaining.
+// ! TODO: Portaibility, Graphics sore and Post Sales support is remaining.
 
 import Laptop from '../../models/laptop'
 import {
