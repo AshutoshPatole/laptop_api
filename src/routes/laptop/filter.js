@@ -11,12 +11,12 @@ const filter = async (req, res) => {
     const { cpuScore, multimediaScore, connectivityScore, maxPrice } = req.query
     const query = Laptop.find()
 
-    if (cpuScore) {
-        query.sort({ cpu_score: -1 })
-    } else if (multimediaScore) {
-        query.sort({ multimedia_score: -1 })
-    } else if (connectivityScore) {
-        query.sort({ connectivity_score: -1 })
+    if (cpuScore !== undefined) {
+        query.sort({ cpu_score: cpuScore })
+    } else if (multimediaScore !== undefined) {
+        query.sort({ multimedia_score: multimediaScore })
+    } else if (connectivityScore !== undefined) {
+        query.sort({ connectivity_score: connectivityScore })
     }
 
     if (maxPrice) {
