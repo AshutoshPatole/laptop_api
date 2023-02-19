@@ -228,7 +228,6 @@ const multimedia_score = (laptop) => {
     return score
 }
 
-// ! TODO: Fix graphics card score not updating for few laptops
 const graphics_score = (laptop) => {
     let graphics = laptop['graphic_processor'].toLowerCase()
     console.log(graphics_cards[graphics])

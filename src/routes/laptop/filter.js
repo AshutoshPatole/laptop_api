@@ -13,7 +13,13 @@ All fields are optional: send 1 for low end and -1 for high end laptops. Example
 import Laptop from '../../models/laptop'
 
 const filter = async (req, res) => {
-    const { cpuScore, multimediaScore, connectivityScore, maxPrice } = req.query
+    const {
+        cpuScore,
+        multimediaScore,
+        connectivityScore,
+        graphicsScore,
+        maxPrice,
+    } = req.query
     const query = Laptop.find()
 
     if (cpuScore !== undefined) {
@@ -22,6 +28,8 @@ const filter = async (req, res) => {
         query.sort({ multimedia_score: multimediaScore })
     } else if (connectivityScore !== undefined) {
         query.sort({ connectivity_score: connectivityScore })
+    } else if (graphicsScore !== undefined) {
+        query.sort({ graphics_score: graphicsScore })
     }
 
     if (maxPrice) {
