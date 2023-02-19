@@ -78,7 +78,7 @@ const rankingSystem = async (_req, res) => {
                         connectivity_score: connectivity_total_score,
                         multimedia_score: multimedia__total_score,
                         brand_name: brand_name,
-                        graphics_core: graphics_total_score,
+                        graphics_score: graphics_total_score,
                     },
                 },
                 { new: true }
@@ -231,6 +231,7 @@ const multimedia_score = (laptop) => {
 // ! TODO: Fix graphics card score not updating for few laptops
 const graphics_score = (laptop) => {
     let graphics = laptop['graphic_processor'].toLowerCase()
+    console.log(graphics_cards[graphics])
 
     return graphics_cards[graphics] || 0
 }
