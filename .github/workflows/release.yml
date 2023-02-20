@@ -1,0 +1,57 @@
+name: Build and Release
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16.x"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build API
+        run: npm run build
+
+      - name: Zip API files
+        uses: appleboy/zip@v2
+        with:
+          args: -r api.zip dist/
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.LAPTOP_PRODUCTION_CI_TOKEN  }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: api
+          path: ./api.zip
+
+      - name: Attach artifact to release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.LAPTOP_PRODUCTION_CI_TOKEN  }}
+        with:
+          asset_path: ./api.zip
+          asset_name: api.zip
+          asset_content_type: application/zip
+          release_id: ${{ steps.create_release.outputs.release_id }}
