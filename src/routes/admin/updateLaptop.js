@@ -1,4 +1,4 @@
-/* 
+/*
 Endpoint for patching a laptop
 
 PATCH: http://localhost:8000/laptop/laptopID
@@ -16,10 +16,11 @@ const updateLaptop = async (req, res) => {
         })
     }
     const lap = await Laptop.findById(req.params.laptopID)
-    if (!lap)
+    if (!lap) {
         return res.status(STATUS_CODES.NOT_FOUND).json({
             message: SERVER.CONTENT_NOT_FOUND,
         })
+    }
     try {
         lap.set(req.body)
         await lap.save()

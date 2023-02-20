@@ -10,7 +10,7 @@ const app = express()
 
 connectDatabase()
 
-let serviceAccount = require('../key.json')
+const serviceAccount = require('../key.json')
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
@@ -25,14 +25,14 @@ app.use(express.json())
 app.use('/laptop', ROUTES.LAPTOP)
 app.use('/admin', ROUTES.ADMIN)
 
-/* 
+/*
     Dummy route to check if the API works after deployment
 */
 app.get('/', (_req, res) => {
     return res.send('LAPIFY BACKEND Triggered from dev branch')
 })
 
-/* 
+/*
     Refer .env-template file for PORT and MONGO_URI
 */
 

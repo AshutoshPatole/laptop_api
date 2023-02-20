@@ -1,4 +1,4 @@
-/* 
+/*
 Endpoint for fetching laptops based on :
 - laptop name
 - processor name
@@ -17,7 +17,7 @@ const filterBySpec = async (req, res) => {
         return res.send('Required brand, processor and price query')
     }
     try {
-        let laptops = await Laptop.find({
+        const laptops = await Laptop.find({
             laptop_name: { $regex: brand, $options: 'i' },
             processor_name: { $regex: processor, $options: 'i' },
             price: { $lte: price },

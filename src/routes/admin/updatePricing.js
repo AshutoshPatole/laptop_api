@@ -1,4 +1,4 @@
-/* 
+/*
 Endpoint for bulk updating the laptop price in db.
 
 POST: http://localhost:8000/admin/upload-pricing-file
@@ -23,29 +23,29 @@ const updatePricing = async (req, res) => {
             if (err) {
                 throw err
             }
-            let laptop_name
-            let model_number
+            let laptopName
+            let modelNumber
             let color
             let price
 
             for (let i = 0; i < json.length; i++) {
-                console.log(`Updating ${json[i]['laptop_name']}`)
-                laptop_name = json[i]['laptop_name']
-                model_number = json[i]['model_number']
+                console.log(`Updating ${json[i]['laptopName']}`)
+                laptopName = json[i]['laptopName']
+                modelNumber = json[i]['modelNumber']
                 color = json[i]['color']
                 price = json[i]['price']
                 // iterate through the list and find if the laptop is present
                 await Laptop.findOne({
-                    laptop_name: laptop_name,
-                    model_number: model_number,
+                    laptopName: laptopName,
+                    modelNumber: modelNumber,
                     color: color,
                 })
                 try {
                     // Update the price field alone
                     await Laptop.updateOne(
                         {
-                            laptop_name: laptop_name,
-                            model_number: model_number,
+                            laptopName: laptopName,
+                            modelNumber: modelNumber,
                             color: color,
                         },
                         { $set: { price: price } }

@@ -1,4 +1,4 @@
-/* 
+/*
 Endpoint to insert bulk laptop json file to the database
 
 WIP: HOLD this endpoint since it is not working as expected
@@ -21,13 +21,13 @@ const bulkInsert = async (_req, res) => {
             }
             //  Read all laptops one by one from the json
             for (let i = 0; i < json.length; i++) {
-                let model_number = json[i]['model_number']
-                let part_number = json[i]['part_number']
-                let color = json[i]['color']
+                const model_number = json[i]['model_number']
+                const part_number = json[i]['part_number']
+                const color = json[i]['color']
                 let invalid_laptops = 0
                 // find if a laptop is already present in the db with same model_number, part_numer and color
                 // and get the count
-                let isDupFound = await Laptop.find({
+                const isDupFound = await Laptop.find({
                     model_number: model_number,
                     part_number: part_number,
                     color: color,
@@ -39,7 +39,7 @@ const bulkInsert = async (_req, res) => {
                 } else {
                     // if laptop does not exists then save it in db
                     try {
-                        let new_lap = await Laptop(json[i])
+                        const new_lap = await Laptop(json[i])
                         new_lap.save()
                     } catch (e) {
                         throw e

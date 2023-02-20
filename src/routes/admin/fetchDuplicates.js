@@ -1,4 +1,4 @@
-/* 
+/*
 Endpoint to find number of duplicate laptops in db
 
 Criteria for duplicate:

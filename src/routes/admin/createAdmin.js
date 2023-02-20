@@ -8,13 +8,13 @@ const createAdminUser = async (req, res) => {
         const { email, displayName, photoURL, firebaseID } = req.body
         if (adminList.includes(email)) {
             admin.auth().setCustomUserClaims(firebaseID, { admin: true })
-            let u = await Users.findOne({ email: email })
+            const u = await Users.findOne({ email: email })
             if (u) {
                 return res.status(STATUS_CODES.OK).json({
                     message: 'User already exists',
                 })
             }
-            let user = Users({
+            const user = Users({
                 email: email,
                 displayName: displayName,
                 photoURL: photoURL,

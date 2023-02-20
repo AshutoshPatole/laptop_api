@@ -58,10 +58,11 @@ const laptopValidate = (req, res, next) => {
 
     const { error, value } = lapSchema.validate(req.body)
     console.log(req.body)
-    if (error)
+    if (error) {
         return res.status(STATUS_CODE.BAD_REQUEST).json({
             message: error.details[0].message,
         })
+    }
     req.body = value
     next()
 }

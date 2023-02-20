@@ -1,4 +1,4 @@
-/* 
+/*
 Admin endpoint for updating score of laptops in bulk
 
 Scores are in src/constants/scores.js
@@ -14,13 +14,14 @@ import {
     cache,
     cpu,
     generation,
+    graphicsCards,
     ram,
-    ram_frequency,
-    ram_generation,
-    screen_resolution,
-    screen_size,
+    ramFrequency,
+    ramGeneration,
+    screenResolution,
+    screenSize,
     ssd,
-    ssd_capacity,
+    ssdCapacity,
     wifi,
 } from '../../constants/scores'
 
@@ -28,34 +29,36 @@ import fs from 'fs'
 
 const rankingSystem = async (_req, res) => {
     // fetch all laptops first
-    let laptops = await Laptop.find()
+    const laptops = await Laptop.find()
 
     // iterate through all laptops
     for (let i = 0; i < laptops.length; i++) {
-        let brand_name = laptops[i]['laptop_name'].split(' ')[0]
+        const brandName = laptops[i]['laptopName'].split(' ')[0]
 
-        if (brand_name.toLowerCase() === 'apple') {
+        if (brandName.toLowerCase() === 'apple') {
             // console.log(`found apple. skipping...`);
             continue
         }
 
-        let cpu_total_score = cpu_score(laptops[i])
-        let memory_total_score = memory_score(laptops[i])
-        let storage_total_score = storage_score(laptops[i])
-        let connectivity_total_score = connectivity_score(laptops[i])
-        let multimedia__total_score = multimedia_score(laptops[i])
+        const cpuTotalScore = cpuScore(laptops[i])
+        const memoryTotalScore = memoryScore(laptops[i])
+        const storageTotalScore = storageScore(laptops[i])
+        const connectivityTotalScore = connectivityScore(laptops[i])
+        const multimediaTotalScore = multimediaScore(laptops[i])
+        const graphicsTotalScore = graphicsScore(laptops[i])
 
-        let total_score =
-            cpu_total_score +
-            memory_total_score +
-            storage_total_score +
-            connectivity_total_score +
-            multimedia__total_score
+        const totalScore =
+            cpuTotalScore +
+            memoryTotalScore +
+            storageTotalScore +
+            connectivityTotalScore +
+            multimediaTotalScore +
+            graphicsTotalScore
 
-        // let connective = laptops[i]['screen_size']
-        // console.log(connective)
+        // let connective = laptops[i]['graphic_processor']
+        // console.log(connective + '=' + mem_type)
         // if (connective !== undefined) {
-        //     fs.appendFile('screen.txt', connective + '\r\n', (err) => {
+        //     fs.appendFile('graphics.txt', connective + '\r\n', (err) => {
         //         if (err) {
         //             return console.log(err)
         //         }
@@ -68,13 +71,14 @@ const rankingSystem = async (_req, res) => {
                 laptops[i]['id'],
                 {
                     $set: {
-                        cpu_score: cpu_total_score,
-                        memory_score: memory_total_score,
-                        storage_score: storage_total_score,
-                        total_score: total_score,
-                        connectivity_score: connectivity_total_score,
-                        multimedia_score: multimedia__total_score,
-                        brand_name: brand_name,
+                        cpuScore: cpuTotalScore,
+                        memoryScore: memoryTotalScore,
+                        storageScore: storageTotalScore,
+                        totalScore: totalScore,
+                        connectivityScore: connectivityTotalScore,
+                        multimediaScore: multimediaTotalScore,
+                        brandName: brandName,
+                        graphicsScore: graphicsTotalScore,
                     },
                 },
                 { new: true }
@@ -88,47 +92,47 @@ const rankingSystem = async (_req, res) => {
     })
 }
 
-const cpu_score = (laptop) => {
+const cpuScore = (laptop) => {
     // variables that matches with the keys of cpu and generation map defined in scores.js
-    let cpu_name = laptop['processor_name']
-    let cpu_brand = laptop['processor_brand']
-    let cpu_generation = laptop['processor_variant']
+    const processorName = laptop['processorName']
+    const processorBrand = laptop['processorBrand']
+    const processorVariant = laptop['processorVariant']
     let score = 0
-    var gen
+    let gen
 
     // check if generation is undefined cuz few laptops in the db does not have this field
-    if (cpu_generation !== undefined) {
+    if (processorVariant !== undefined) {
         // condition cuz Intel and AMD have totally different generations
         // Intel has processor variants as 10..., 11..., 12... or 8... for 10th, 11th, 12th and 8th generation respectively
         // AMD has *3.., *5.. and *7.. for its Ryzen 3, Ryzen 5 and Ryzen 7 etc.
 
-        if (cpu_brand == 'Intel') {
-            gen = cpu_generation.substring(0, 1)
+        if (processorBrand == 'Intel') {
+            gen = processorVariant.substring(0, 1)
             // if generation first character lies between 6-9 i.e 6th gen to 9th gen then match the key
             if (gen <= 9 && gen >= 6) {
-                score = cpu[cpu_name] + generation[gen]
+                score = cpu[processorName] + generation[gen]
             } else {
                 // else take first 2 characters i.e 10, 11 and 12 and then match the key
-                let new_gen = cpu_generation.substring(0, 2)
-                score = cpu[cpu_name] + generation[new_gen]
+                const newGen = processorVariant.substring(0, 2)
+                score = cpu[processorName] + generation[newGen]
             }
         } else {
             // Ryzen CPU are easy to find just take first 4 characters and map them
-            gen = cpu_generation.substring(0, 4)
-            score = cpu[cpu_name] + generation[gen]
+            gen = processorVariant.substring(0, 4)
+            score = cpu[processorName] + generation[gen]
         }
     }
 
     // score on cpu cache
-    let cpu_cache = laptop['cache']
-    if (cpu_cache !== undefined) {
-        score += cache[cpu_cache]
+    const cpuCache = laptop['cache']
+    if (cpuCache !== undefined) {
+        score += cache[cpuCache]
     }
 
     // If none of the criteria match then score becomes NaN hence check to find
     // and provide default value of processor alone not generation
     if (Number.isNaN(score) || score == undefined) {
-        score = cpu[cpu_name]
+        score = cpu[processorName]
 
         // if processor is also not matched then defaults to zero
         if (Number.isNaN(score) || score == undefined) {
@@ -139,89 +143,96 @@ const cpu_score = (laptop) => {
     return score
 }
 
-const memory_score = (laptop) => {
-    let ram_type = laptop['ram_type']
-    let ram_size = laptop['ram']
-    let ram_freq = laptop['ram_frequency']
+const memoryScore = (laptop) => {
+    const ramType = laptop['ramType']
+    const ramSize = laptop['ram']
+    const ramFreq = laptop['ramFrequency']
     let score = 0
 
-    if (ram_type !== undefined) {
-        score += ram_generation[ram_type]
+    if (ramType !== undefined) {
+        score += ramGeneration[ramType]
     }
 
-    if (ram_size !== undefined) {
-        score += ram[ram_size]
+    if (ramSize !== undefined) {
+        score += ram[ramSize]
     }
 
-    if (ram_freq !== undefined) {
-        score += ram_frequency[ram_freq]
+    if (ramFreq !== undefined) {
+        score += ramFrequency[ramFreq]
     }
 
     return score
 }
 
-const storage_score = (laptop) => {
+const storageScore = (laptop) => {
     let isSSD = laptop['ssd']
-    let ssd_size = laptop['ssd_capacity']
+    let ssdSize = laptop['ssdCapacity']
     let score = 0
 
-    if (isSSD === undefined && ssd_size === undefined) {
+    if (isSSD === undefined && ssdSize === undefined) {
         isSSD = 'No'
-        ssd_size = 64
+        ssdSize = 64
     }
     if (isSSD !== undefined) {
         score += ssd[isSSD]
     }
-    if (ssd_size !== undefined) {
+    if (ssdSize !== undefined) {
         let size
-        if (ssd_size.includes('TB')) {
-            ssd_size = ssd_size.split('TB')[0]
-            size = ssd_size * 1024
+        if (ssdSize.includes('TB')) {
+            ssdSize = ssdSize.split('TB')[0]
+            size = ssdSize * 1024
         } else {
-            size = ssd_size.split('GB')[0]
+            size = ssdSize.split('GB')[0]
         }
-        score += ssd_capacity[parseInt(size)]
+        score += ssdCapacity[parseInt(size)]
     }
 
     return score
 }
 
-const connectivity_score = (laptop) => {
-    let wifi_name = laptop['wireless_lan']
-    let bluetooth_version = laptop['bluetooth']
+const connectivityScore = (laptop) => {
+    let wifiName = laptop['wirelessLan']
+    let bluetoothVersion = laptop['bluetooth']
     let score = 0
-    if (wifi_name !== undefined && bluetooth_version !== undefined) {
-        let w = wifi[wifi_name]
-        let b = bluetooth[bluetooth_version]
+    if (wifiName !== undefined && bluetoothVersion !== undefined) {
+        const w = wifi[wifiName]
+        const b = bluetooth[bluetoothVersion]
         if (w === undefined) {
-            wifi_name = 'Wi-Fi 5(802.11ac)'
+            wifiName = 'Wi-Fi 5(802.11ac)'
         }
         if (b === undefined) {
-            bluetooth_version = '4.2'
+            bluetoothVersion = '4.2'
         }
-        score += wifi[wifi_name]
-        score += bluetooth[bluetooth_version]
+        score += wifi[wifiName]
+        score += bluetooth[bluetoothVersion]
     }
 
     return score
 }
 
-const multimedia_score = (laptop) => {
-    let size = laptop['screen_size']
-    let resolution = laptop['screen_resolution']
+const multimediaScore = (laptop) => {
+    const size = laptop['screenSize']
+    const resolution = laptop['screenResolution']
     let score = 0
     if (size !== undefined && resolution !== undefined) {
-        let s = screen_size[size]
-        let r = screen_resolution[resolution]
+        const s = screenSize[size]
+        const r = screenResolution[resolution]
         if (s !== undefined) {
-            score += screen_size[size]
+            score += screenSize[size]
         }
         if (r !== undefined) {
-            score += screen_resolution[resolution]
+            score += screenResolution[resolution]
         }
     }
 
     return score
+}
+
+const graphicsScore = (laptop) => {
+    const graphics = laptop['graphicProcessor'].toLowerCase()
+    console.log(graphicsCards[graphics])
+
+    return graphicsCards[graphics] || 0
 }
 
 export default rankingSystem

@@ -1,4 +1,4 @@
-/* 
+/*
 Endpoint for fetching laptops from db
 
 This endpoint is paginated and offset value is required to fetch next set of documents. By default the value is 1.

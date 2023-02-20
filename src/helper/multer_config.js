@@ -1,4 +1,4 @@
-/* 
+/*
 This file contains configuration for storing files uploaded from '/admin/upload' endpoint
 */
 
