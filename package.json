@@ -4,7 +4,7 @@
     "description": "",
     "main": "src/server.js",
     "scripts": {
-        "dev": "nodemon --exec babel-node ./src/server.js",
+        "dev": "nodemon --exec babel-node --ignore data.json ./src/server.js",
         "start": "npm run build && node ./build/server.js",
         "clean": "rm -rf build && mkdir build",
         "build-babel": "babel -d ./build ./src -s",

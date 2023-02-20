@@ -15,6 +15,7 @@ import {
 import uploadFile from './fileUpload'
 import updateLaptop from './updateLaptop'
 import deleteLaptop from './deleteLaptop'
+import dataeGenerator from './data_generator'
 
 const adminRouter = Router()
 
@@ -39,5 +40,7 @@ adminRouter.post('/create-user', createAdminUser)
 adminRouter.post('/upload', pricingFile.single('file'), uploadFile)
 
 adminRouter.delete('/:laptopID', deleteLaptop)
+
+adminRouter.get('/dg', dataeGenerator)
 
 export default adminRouter
