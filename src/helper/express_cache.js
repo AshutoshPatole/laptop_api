@@ -1,9 +1,9 @@
-import ExpressRedisCache from 'express-redis-cache';
+import ExpressRedisCache from 'express-redis-cache'
 
 const cache = ExpressRedisCache({
-  // host: "redis-cache",   // Docker
-  host: 'localhost', // Development local
-  expire: 300,
-});
+    // host: "redis-cache",   // Docker
+    host: 'localhost', // Development local
+    expire: 300,
+})
 
-export default cache;
+export default cache

@@ -1,5 +1,5 @@
 const uploadFile = async (_req, res) => {
-  return res.send('File uploaded');
-};
+    return res.send('File uploaded')
+}
 
-export default uploadFile;
+export default uploadFile

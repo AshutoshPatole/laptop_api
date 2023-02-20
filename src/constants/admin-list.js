@@ -1,3 +1,3 @@
-const adminUserList = ['apatole479@gmail.com', 'bit0byte8@gmail.com'];
+const adminUserList = ['apatole479@gmail.com', 'bit0byte8@gmail.com']
 
-export default adminUserList;
+export default adminUserList
