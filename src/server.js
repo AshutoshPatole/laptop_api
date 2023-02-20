@@ -40,3 +40,7 @@ const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {
     console.log(`[INFO] Live at ${PORT}`)
 })
+
+/* 
+http://144.24.146.18:5000/laptop
+*/
