@@ -25,9 +25,7 @@ jobs:
         run: npm run build
 
       - name: Zip API files
-        uses: appleboy/zip@v2
-        with:
-          args: -r api.zip dist/
+        run: zip -r api.zip build
 
       - name: Create Release
         id: create_release
